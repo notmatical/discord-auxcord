@@ -55,7 +55,7 @@ client.on('message', function(message) {
                         var songDuration = seconds_format(videoInfo.duration);
 
                         const embed = new Discord.RichEmbed()
-                        .setAuthor(`Added to queue..`, `${message.author.avatarURL}`, 'https://trello.com/b/h9zO4sgW/auxcord-discord-bot')
+                        .setAuthor(`Added to Queue..`, `${message.author.avatarURL}`, 'https://trello.com/b/h9zO4sgW/auxcord-discord-bot')
                         .setTitle(`${videoInfo.title}`)
                         .setURL(`${videoInfo.url}`)
                         .setColor("#177bc6")
@@ -208,6 +208,7 @@ client.on('message', function(message) {
         .setAuthor(`Available Commands`, `${message.author.avatarURL}`, 'https://trello.com/b/h9zO4sgW/auxcord-discord-bot')
         .setTitle(`Utility & Moderation Coming Soon`)
         .setURL("https://trello.com/b/h9zO4sgW/auxcord-discord-bot")
+        .setThumbnail(`https://i.imgur.com/sNI5Csn.png`)
         .setColor("#177bc6")
         .addField(`Music`, `${prefix}play, ${prefix}nowplaying, ${prefix}queue, ${prefix}clear, ${prefix}skip, ${prefix}leave`)
         .addBlankField()
@@ -223,13 +224,22 @@ client.on('message', function(message) {
 
 client.on('ready', function() {
 	log(`[INFO] Logged in as ${client.user.tag}.`);
-	log(`[INFO] Now serving ${client.users.size} users in ${client.channels.size} channels on ${client.guilds.size} servers.`);
+    log(`[INFO] Now serving ${client.users.size} users in ${client.channels.size} channels on ${client.guilds.size} servers.`);
+    
+    log("[INFO] Connected Servers:");
+    client.guilds.forEach((guild) => {
+        log(" - " + guild.name);
+    });
 
     if (devMode) {
         client.user.setPresence({ game: { name: `dev-mode | matical#9282` }, status: `dnd` }).then().catch(console.error);
     } else {
         client.user.setPresence({ game: { name: `slappers | ~help | matical#9282` }, status: `online` }).then().catch(console.error);
     }
+});
+
+client.on('guildCreate', async guild => {
+    log(`[INFO] Bot has been added to a new guild: ${guild.name}`);
 });
 
 client.on('disconnect', function() {
