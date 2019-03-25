@@ -224,7 +224,12 @@ client.on('message', function(message) {
 
 client.on('ready', function() {
 	log(`[INFO] Logged in as ${client.user.tag}.`);
-	log(`[INFO] Now serving ${client.users.size} users in ${client.channels.size} channels on ${client.guilds.size} servers.`);
+    log(`[INFO] Now serving ${client.users.size} users in ${client.channels.size} channels on ${client.guilds.size} servers.`);
+    
+    log("[INFO] Connected Servers:");
+    client.guilds.forEach((guild) => {
+        log(" - " + guild.name);
+    });
 
     if (devMode) {
         client.user.setPresence({ game: { name: `dev-mode | matical#9282` }, status: `dnd` }).then().catch(console.error);
