@@ -1,0 +1,6 @@
+{
+    "yt_api_key": "SET_ME",
+    "discord_token": "SET_ME",
+    "bot_controller": "SET_ME",
+    "prefix": "~"
+}

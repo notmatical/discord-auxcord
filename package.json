@@ -1,0 +1,18 @@
+{
+  "name": "auxcord",
+  "version": "1.0.0",
+  "description": "Discord Music, Utility & Moderation Bot",
+  "main": "app.js",
+  "author": "matical",
+  "dependencies": {
+    "discord.js": "^11.4.2",
+    "ffmpeg-binaries": "^4.0.0",
+    "fs": "0.0.1-security",
+    "get-youtube-id": "^1.0.1",
+    "moment": "^2.24.0",
+    "opusscript": "0.0.6",
+    "request": "^2.88.0",
+    "youtube-info": "^1.3.2",
+    "ytdl-core": "^0.29.1"
+  }
+}
