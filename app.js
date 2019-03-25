@@ -43,6 +43,7 @@ client.on('message', function(message) {
         };
     }
 
+    // MUSIC \\
     if (mess.startsWith(prefix + "play") || mess.startsWith(prefix + "p")) {
         if (message.member.voiceChannel || guilds[message.guild.id].voiceConnection != null) {
             if (guilds[message.guild.id].queue.length > 0 || guilds[message.guild.id].isPlaying) {
@@ -185,6 +186,22 @@ client.on('message', function(message) {
         .setFooter(`${message.author.username}`);
 
         message.channel.send(embed);
+
+    } 
+    
+    // FUN \\
+    else if (mess.startsWith(prefix + "8ball")) {
+        var ballResponses = [
+            "Yes! :smile:",
+            "No. :frowning:",
+            "Maybe.. :stuck_out_tongue:",
+            "Who knows... :thinking:"
+        ];
+
+        if (!args[0]) return message.channel.send("include a question? smh weirdo.");
+
+        if (args[0]) message.channel.send(ballResponses[Math.floor(Math.random() * ballResponses.length)]);
+        else message.channel.send("try again buddy, i didnt understand that..");
 
     } else if (mess.startsWith(prefix + "help")) {
         const embed = new Discord.RichEmbed()
