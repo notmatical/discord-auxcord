@@ -240,21 +240,6 @@ client.on('ready', function() {
 
 client.on('guildCreate', async guild => {
     log(`[INFO] Bot has been added to a new guild: ${guild.name}`);
-    
-    /* send message to default channel.
-    let channelID;
-    let channels = guild.channels;
-    channelLoop:
-    for (let c of channels) {
-        let channelType = c[1].type;
-        if (channelType === "text") {
-            channelID = c[0];
-            break channelLoop;
-        }
-    }
-
-    let channel = client.channels.get(guild.systemChannelID || channelID);
-    channel.send(`guildCreate debug`);*/
 });
 
 client.on('disconnect', function() {
