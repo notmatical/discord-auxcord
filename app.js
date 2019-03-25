@@ -208,6 +208,7 @@ client.on('message', function(message) {
         .setAuthor(`Available Commands`, `${message.author.avatarURL}`, 'https://trello.com/b/h9zO4sgW/auxcord-discord-bot')
         .setTitle(`Utility & Moderation Coming Soon`)
         .setURL("https://trello.com/b/h9zO4sgW/auxcord-discord-bot")
+        .setThumbnail(`https://i.imgur.com/sNI5Csn.png`)
         .setColor("#177bc6")
         .addField(`Music`, `${prefix}play, ${prefix}nowplaying, ${prefix}queue, ${prefix}clear, ${prefix}skip, ${prefix}leave`)
         .addBlankField()
