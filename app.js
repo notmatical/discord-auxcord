@@ -13,8 +13,8 @@ const yt_api_key = config.yt_api_key;
 const prefix = config.prefix;
 const discord_token = config.discord_token;
 
-// CHANGE THIS WHEN PUSHING TO PRODUCTION BRANCH
-var devMode = false;
+// CHANGE THIS WHEN PUSHING TO MASTER BRANCH
+var devMode = true;
 
 const log = (msg) => {
 	console.log(`[${moment().format("YYYY-MM-DD HH:mm:ss")}] ${msg}`);
@@ -43,6 +43,7 @@ client.on('message', function(message) {
         };
     }
 
+    // MUSIC \\
     if (mess.startsWith(prefix + "play") || mess.startsWith(prefix + "p")) {
         if (message.member.voiceChannel || guilds[message.guild.id].voiceConnection != null) {
             if (guilds[message.guild.id].queue.length > 0 || guilds[message.guild.id].isPlaying) {
@@ -186,6 +187,22 @@ client.on('message', function(message) {
 
         message.channel.send(embed);
 
+    } 
+    
+    // FUN \\
+    else if (mess.startsWith(prefix + "8ball")) {
+        var ballResponses = [
+            "Yes! :smile:",
+            "No. :frowning:",
+            "Maybe.. :stuck_out_tongue:",
+            "Who knows... :thinking:"
+        ];
+
+        if (!args[0]) return message.channel.send("include a question? smh weirdo.");
+
+        if (args[0]) message.channel.send(ballResponses[Math.floor(Math.random() * ballResponses.length)]);
+        else message.channel.send("try again buddy, i didnt understand that..");
+
     } else if (mess.startsWith(prefix + "help")) {
         const embed = new Discord.RichEmbed()
         .setAuthor(`Available Commands`, `${message.author.avatarURL}`, 'https://trello.com/b/h9zO4sgW/auxcord-discord-bot')
@@ -193,8 +210,10 @@ client.on('message', function(message) {
         .setURL("https://trello.com/b/h9zO4sgW/auxcord-discord-bot")
         .setColor("#177bc6")
         .addField(`Music`, `${prefix}play, ${prefix}nowplaying, ${prefix}queue, ${prefix}clear, ${prefix}skip, ${prefix}leave`)
-        //.addField(`Utility`, `Soon`)
-        //.addField(`Moderation`, `Soon`)
+        .addBlankField()
+        .addField(`Utility`, `Soon`)
+        .addBlankField()
+        .addField(`Fun`, `${prefix}8ball`)
         .setTimestamp()
         .setFooter(`${message.author.username}`);
 
