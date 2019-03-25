@@ -55,7 +55,7 @@ client.on('message', function(message) {
                         var songDuration = seconds_format(videoInfo.duration);
 
                         const embed = new Discord.RichEmbed()
-                        .setAuthor(`Added to queue..`, `${message.author.avatarURL}`, 'https://trello.com/b/h9zO4sgW/auxcord-discord-bot')
+                        .setAuthor(`Added to Queue..`, `${message.author.avatarURL}`, 'https://trello.com/b/h9zO4sgW/auxcord-discord-bot')
                         .setTitle(`${videoInfo.title}`)
                         .setURL(`${videoInfo.url}`)
                         .setColor("#177bc6")
