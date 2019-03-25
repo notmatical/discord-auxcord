@@ -213,8 +213,6 @@ client.on('message', function(message) {
         .addBlankField()
         .addField(`Utility`, `Soon`)
         .addBlankField()
-        .addField(`Moderation`, `Soon`)
-        .addBlankField()
         .addField(`Fun`, `${prefix}8ball`)
         .setTimestamp()
         .setFooter(`${message.author.username}`);
