@@ -13,8 +13,8 @@ const yt_api_key = config.yt_api_key;
 const prefix = config.prefix;
 const discord_token = config.discord_token;
 
-// CHANGE THIS WHEN PUSHING TO PRODUCTION BRANCH
-var devMode = false;
+// CHANGE THIS WHEN PUSHING TO MASTER BRANCH
+var devMode = true;
 
 const log = (msg) => {
 	console.log(`[${moment().format("YYYY-MM-DD HH:mm:ss")}] ${msg}`);
