@@ -14,7 +14,7 @@ const prefix = config.prefix;
 const discord_token = config.discord_token;
 
 // CHANGE THIS WHEN PUSHING TO MASTER BRANCH
-var devMode = true;
+var devMode = false;
 
 const log = (msg) => {
 	console.log(`[${moment().format("YYYY-MM-DD HH:mm:ss")}] ${msg}`);
