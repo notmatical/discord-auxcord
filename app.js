@@ -210,8 +210,12 @@ client.on('message', function(message) {
         .setURL("https://trello.com/b/h9zO4sgW/auxcord-discord-bot")
         .setColor("#177bc6")
         .addField(`Music`, `${prefix}play, ${prefix}nowplaying, ${prefix}queue, ${prefix}clear, ${prefix}skip, ${prefix}leave`)
-        //.addField(`Utility`, `Soon`)
-        //.addField(`Moderation`, `Soon`)
+        .addBlankField()
+        .addField(`Utility`, `Soon`)
+        .addBlankField()
+        .addField(`Moderation`, `Soon`)
+        .addBlankField()
+        .addField(`Fun`, `${prefix}8ball`)
         .setTimestamp()
         .setFooter(`${message.author.username}`);
 
