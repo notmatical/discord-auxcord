@@ -235,6 +235,25 @@ client.on('message', function(message) {
             .setFooter(`${message.author.username}`);
     
             message.channel.send(embed);    
+        } else if (option == "u") {
+            // user debug
+            const embed = new Discord.RichEmbed()
+            .setAuthor(`Debug Information`, `${message.author.avatarURL}`, 'https://trello.com/b/h9zO4sgW/auxcord-discord-bot')
+            .setTitle(`USER`)
+            .setColor("#177bc6")
+            .setThumbnail("https://i.imgur.com/Tk9VVbX.png")
+            .addField(`User Tag:`, `${client.user.tag}`, true)
+            .addField(`Users Serving:`, `${client.users.size}`, true)
+            .addField(`Channels Serving:`, `${client.channels.size}`, true)
+            .addField(`Servers Serving:`, `${client.guilds.size}`, true)
+            .addField(`Authenticated Client:`, `${client.user}`, true)
+            .addField(`Connection Uptime:`, `${seconds_format(client.uptime)}`, true)
+            .addField(`Connection Ping:`, `${client.ping}ms`, true)
+            .setTimestamp()
+            .setFooter(`${message.author.username}`, `${message.author.avatarURL} `);
+    
+            message.channel.send(embed);
+
         }
 
     }
