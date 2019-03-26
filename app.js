@@ -108,6 +108,7 @@ client.on('message', function(message) {
 
     } else if (mess.startsWith(prefix + "skip") || mess.startsWith(prefix + "s")) {
 
+        if(!message.guild.me.voiceChannel) return message.channel.send(":x: I'm not in a voice channel currently.");
         if (!isPlaying) return message.channel.send(":x: I'm currently not playing anything.");
         if (message.guild.me.voiceChannelID !== message.member.voiceChannelID) return message.channel.send(":x: You must be in the same channel as me to do that.");
 
@@ -117,7 +118,6 @@ client.on('message', function(message) {
         let required = Math.ceil(userCount / 2);
 
         if (!guilds[message.guild.id].skippers) guilds[message.guild.id].skippers = [];
-
         if (!guilds[message.guild.id].skippers.indexOf(message.author.id)) return message.channel.send(":x: You've already tried to skip this.");
 
         guilds[message.guild.id].skippers.push(message.author.id);
@@ -163,7 +163,6 @@ client.on('message', function(message) {
 
     } else if (mess.startsWith(prefix + "clear") || mess.startsWith(prefix + "c")) {
         
-        //if(!message.guild.me.voiceChannel) return message.channel.send(":x: I'm not in a voice channel currently.");
         if (!isPlaying) return message.channel.send(":x: I'm currently not playing anything.");
         if (message.guild.me.voiceChannelID !== message.member.voiceChannelID) return message.channel.send(":x: You must be in the same channel as me to do that.");
 
