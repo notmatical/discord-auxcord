@@ -166,6 +166,8 @@ client.on('message', function(message) {
 
     } else if (mess.startsWith(prefix + "queue") || mess.startsWith(prefix + "q")) {
 
+        if (guilds[message.guild.id].queue.length === 0) return message.channel.send(":x: There is nothing in the queue.");
+
         const embed = new Discord.RichEmbed()
         .setAuthor(`Current Queue`, `${message.author.avatarURL}`, 'https://trello.com/b/h9zO4sgW/auxcord-discord-bot')
         .setThumbnail(`https://i.imgur.com/sNI5Csn.png`)
@@ -207,7 +209,7 @@ client.on('message', function(message) {
 
         message.channel.send(embed);
 
-    } 
+    }
 
     // UTILITY \\
 
