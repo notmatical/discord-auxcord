@@ -183,7 +183,7 @@ client.on('message', function(message) {
 
     } else if (mess.startsWith(prefix + "clear") || mess.startsWith(prefix + "c")) {
         
-        if (!isPlaying) return message.channel.send(":x: I'm currently not playing anything.");
+        if (!guilds[message.guild.id].isPlaying) return message.channel.send(":x: I'm currently not playing anything.");
         if (message.guild.me.voiceChannelID !== message.member.voiceChannelID) return message.channel.send(":x: You must be in the same channel as me to do that.");
 
         guilds[message.guild.id].queue = [];
