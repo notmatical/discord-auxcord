@@ -43,7 +43,7 @@ client.on('message', function(message) {
     const mess = message.content.toLowerCase();
     const args = message.content.split(' ').slice(1).join(" ");
 
-    if(message.author.bot) return;
+    if(message.author.bot || message.channel.type == "dm") return;
 
     if (!guilds[message.guild.id]) {
         guilds[message.guild.id] = {
@@ -153,7 +153,6 @@ client.on('message', function(message) {
         }
 
     } else if (mess.startsWith(prefix + "leave") || mess.startsWith(prefix + "dc") || mess.startsWith(prefix + "disconnect")) {
-        if (!guilds[message.guild.id].isPlaying) return message.channel.send(":x: I'm currently not playing anything.");
         if (message.guild.me.voiceChannelID !== message.member.voiceChannelID) return message.channel.send(":x: You must be in the same channel as me to do that.");
     
         guilds[message.guild.id].queue = [];
