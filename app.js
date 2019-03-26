@@ -40,10 +40,11 @@ client.on('warn', () => {
 client.login(discord_token);
 
 client.on('message', function(message) {
-    const mess = message.content.toLowerCase();
-    const args = message.content.split(' ').slice(1).join(" ");
 
     if(message.author.bot || message.channel.type == "dm") return;
+
+    const mess = message.content.toLowerCase();
+    const args = message.content.split(' ').slice(1).join(" ");
 
     if (!guilds[message.guild.id]) {
         guilds[message.guild.id] = {
