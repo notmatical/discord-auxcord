@@ -309,8 +309,6 @@ client.on("guildDelete", guild => {
 client.on('disconnect', function() {
     log(`[INFO] Bot has been disconnected.`);
 
-    /*let vc = guilds[message.guild.id].voiceChannel;
-    if (vc) vc.leave();*/
 });
 
 function seconds_format(seconds) {
