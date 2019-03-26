@@ -13,11 +13,11 @@ const yt_api_key = config.yt_api_key;
 const prefix = config.prefix;
 const discord_token = config.discord_token;
 
-const auxcord_discord = client.guilds.get("559918762145611776");
-const general_logs = client.channels.get("559936755223101440");
-const request_logs = client.channels.get("559935516217311232");
-const warning_logs = client.channels.get("559935601143709706");
-const error_logs = client.channels.get("559935638657564686");
+var auxcord_discord = null;
+var general_logs = null;
+var request_logs = null;
+var warning_logs = null;
+var error_logs = null;
 
 // CHANGE THIS WHEN PUSHING TO MASTER BRANCH
 var devMode = false;
@@ -85,7 +85,7 @@ client.on('message', function(message) {
                         .setFooter(`${message.author.username}`);
                 
                         message.channel.send(embed);
-                        request_logs.send(`[${moment().format("YYYY-MM-DD HH:mm:ss")}] [REQUEST] ${message.member.name} has requested ${videoInfo.title} to be played.`);
+                        request_logs.send(`[${moment().format("YYYY-MM-DD HH:mm:ss")}] [REQUEST] **${message.author.tag}** has requested **${videoInfo.title}** to be played.`);
 
                         guilds[message.guild.id].queueNames.push(videoInfo.title);
                     });
@@ -116,7 +116,7 @@ client.on('message', function(message) {
                         .setFooter(`${message.author.username}`);
                 
                         message.channel.send(embed);
-                        request_logs.send(`[${moment().format("YYYY-MM-DD HH:mm:ss")}] [REQUEST] ${message.member.name} has requested ${videoInfo.title} to be played.`);
+                        request_logs.send(`[${moment().format("YYYY-MM-DD HH:mm:ss")}] [REQUEST] **${message.author.tag}** has requested **${videoInfo.title}** to be played. (GUILD: )`);
 
                         guilds[message.guild.id].queueNames.push(videoInfo.title);
                     });
@@ -245,6 +245,13 @@ client.on('message', function(message) {
 client.on('ready', function() {
 	log(`[INFO] Logged in as ${client.user.tag}.`);
     log(`[INFO] Now serving ${client.users.size} users in ${client.channels.size} channels on ${client.guilds.size} servers.`);
+
+    // assign logging channel ids
+    auxcord_discord = client.guilds.get("559918762145611776");
+    general_logs = auxcord_discord.channels.get("559936755223101440")
+    request_logs = auxcord_discord.channels.get("559935516217311232")
+    warning_logs = auxcord_discord.channels.get("559935601143709706")
+    error_logs = auxcord_discord.channels.get("559935638657564686")
 
     general_logs.send(`[${moment().format("YYYY-MM-DD HH:mm:ss")}] [INFO] Logged in as ${client.user.tag}.`);
     general_logs.send(`[${moment().format("YYYY-MM-DD HH:mm:ss")}] [INFO] Now serving ${client.users.size} users in ${client.channels.size} channels on ${client.guilds.size} servers.`);
