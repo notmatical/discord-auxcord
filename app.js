@@ -59,71 +59,71 @@ client.on('message', function(message) {
 
     // MUSIC \\
     if (mess.startsWith(prefix + "play") || mess.startsWith(prefix + "p")) {
-        if (message.member.voiceChannel || guilds[message.guild.id].voiceConnection != null) {
-            if (guilds[message.guild.id].queue.length > 0 || guilds[message.guild.id].isPlaying) {
-                fetch_id(args, function(id) {
-                    add_to_queue(id, message);
-                    fetchVideoInfo(id, function(err, videoInfo) {
-                        if (err) {
-                            error_logs.send(`[${moment().format("YYYY-MM-DD HH:mm:ss")}] [ERROR] ${err}`);
-                            throw new Error(err);
-                        } 
 
-                        var songDuration = seconds_format(videoInfo.duration);
+        if (!message.member.voiceChannel || guilds[message.guild.id].voiceConnection === null) return message.channel.send(":x: You have to be in a voice channel to do this.");
+        if (!args) return message.channel.send(":x: Specify a link or a song name to search for.");
 
-                        const embed = new Discord.RichEmbed()
-                        .setAuthor(`Added to Queue..`, `${message.author.avatarURL}`, 'https://trello.com/b/h9zO4sgW/auxcord-discord-bot')
-                        .setTitle(`${videoInfo.title}`)
-                        .setURL(`${videoInfo.url}`)
-                        .setColor("#177bc6")
-                        .setThumbnail(`https://i.imgur.com/sNI5Csn.png`)
-                        .addField(`Channel`, `${videoInfo.owner}`, true)
-                        .addField(`Song Duration`, `${songDuration}`, true)
-                        .addField(`Queue Position`, `${guilds[message.guild.id].queue.length}`, true)
-                        .addField(`Published On`, `${videoInfo.datePublished}`, true)
-                        .setTimestamp()
-                        .setFooter(`${message.author.username}`);
+        if (guilds[message.guild.id].queue.length > 0 || guilds[message.guild.id].isPlaying) {
+            fetch_id(args, function(id) {
+                add_to_queue(id, message);
+                fetchVideoInfo(id, function(err, videoInfo) {
+                    if (err) {
+                        error_logs.send(`[${moment().format("YYYY-MM-DD HH:mm:ss")}] [ERROR] ${err}`);
+                        throw new Error(err);
+                    } 
+
+                    var songDuration = seconds_format(videoInfo.duration);
+
+                    const embed = new Discord.RichEmbed()
+                    .setAuthor(`Added to Queue..`, `${message.author.avatarURL}`, 'https://trello.com/b/h9zO4sgW/auxcord-discord-bot')
+                    .setTitle(`${videoInfo.title}`)
+                    .setURL(`${videoInfo.url}`)
+                    .setColor("#177bc6")
+                    .setThumbnail(`https://i.imgur.com/sNI5Csn.png`)
+                    .addField(`Channel`, `${videoInfo.owner}`, true)
+                    .addField(`Song Duration`, `${songDuration}`, true)
+                    .addField(`Queue Position`, `${guilds[message.guild.id].queue.length}`, true)
+                    .addField(`Published On`, `${videoInfo.datePublished}`, true)
+                    .setTimestamp()
+                    .setFooter(`${message.author.username}`);
                 
-                        message.channel.send(embed);
-                        request_logs.send(`[${moment().format("YYYY-MM-DD HH:mm:ss")}] [REQUEST] **${message.author.tag}** has requested **${videoInfo.title}** to be played.`);
+                    message.channel.send(embed);
+                    request_logs.send(`[${moment().format("YYYY-MM-DD HH:mm:ss")}] [REQUEST] **${message.author.tag}** has requested **${videoInfo.title}** to be played.`);
 
-                        guilds[message.guild.id].queueNames.push(videoInfo.title);
-                    });
+                    guilds[message.guild.id].queueNames.push(videoInfo.title);
                 });
-            } else {
-                guilds[message.guild.id].isPlaying = true;
-                fetch_id(args, function(id) {
-                    guilds[message.guild.id].queue.push(id);
-                    playMusic(id, message);
-                    fetchVideoInfo(id, function(err, videoInfo) {
-                        if (err) {
-                            error_logs.send(`[${moment().format("YYYY-MM-DD HH:mm:ss")}] [ERROR] ${err}`);
-                            throw new Error(err);
-                        } 
-
-                        var songDuration = seconds_format(videoInfo.duration);
-
-                        const embed = new Discord.RichEmbed()
-                        .setAuthor(`Now Playing..`, `${message.author.avatarURL}`, 'https://trello.com/b/h9zO4sgW/auxcord-discord-bot')
-                        .setTitle(`${videoInfo.title}`)
-                        .setURL(`${videoInfo.url}`)
-                        .setColor("#177bc6")
-                        .setThumbnail(`https://i.imgur.com/sNI5Csn.png`)
-                        .addField(`Channel`, `${videoInfo.owner}`, true)
-                        .addField(`Song Duration`, `${songDuration}`, true)
-                        .addField(`Published On`, `${videoInfo.datePublished}`, true)
-                        .setTimestamp()
-                        .setFooter(`${message.author.username}`);
-                
-                        message.channel.send(embed);
-                        request_logs.send(`[${moment().format("YYYY-MM-DD HH:mm:ss")}] [REQUEST] **${message.author.tag}** has requested **${videoInfo.title}** to be played.`);
-
-                        guilds[message.guild.id].queueNames.push(videoInfo.title);
-                    });
-                });
-            }
+            });
         } else {
-            message.channel.send(":x: You have to be in a voice channel to do this.");
+            guilds[message.guild.id].isPlaying = true;
+            fetch_id(args, function(id) {
+                guilds[message.guild.id].queue.push(id);
+                playMusic(id, message);
+                fetchVideoInfo(id, function(err, videoInfo) {
+                    if (err) {
+                        error_logs.send(`[${moment().format("YYYY-MM-DD HH:mm:ss")}] [ERROR] ${err}`);
+                        throw new Error(err);
+                    } 
+
+                    var songDuration = seconds_format(videoInfo.duration);
+
+                    const embed = new Discord.RichEmbed()
+                    .setAuthor(`Now Playing..`, `${message.author.avatarURL}`, 'https://trello.com/b/h9zO4sgW/auxcord-discord-bot')
+                    .setTitle(`${videoInfo.title}`)
+                    .setURL(`${videoInfo.url}`)
+                    .setColor("#177bc6")
+                    .setThumbnail(`https://i.imgur.com/sNI5Csn.png`)
+                    .addField(`Channel`, `${videoInfo.owner}`, true)
+                    .addField(`Song Duration`, `${songDuration}`, true)
+                    .addField(`Published On`, `${videoInfo.datePublished}`, true)
+                    .setTimestamp()
+                    .setFooter(`${message.author.username}`);
+                
+                    message.channel.send(embed);
+                    request_logs.send(`[${moment().format("YYYY-MM-DD HH:mm:ss")}] [REQUEST] **${message.author.tag}** has requested **${videoInfo.title}** to be played.`);
+
+                    guilds[message.guild.id].queueNames.push(videoInfo.title);
+                });
+            });
         }
 
     } else if (mess.startsWith(prefix + "skip") || mess.startsWith(prefix + "s")) {
