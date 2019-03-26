@@ -309,6 +309,7 @@ client.on("guildDelete", guild => {
 client.on('disconnect', function() {
     log(`[INFO] Bot has been disconnected.`);
 
+    
 });
 
 function seconds_format(seconds) {
