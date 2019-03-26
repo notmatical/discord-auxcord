@@ -128,7 +128,6 @@ client.on('message', function(message) {
 
     } else if (mess.startsWith(prefix + "skip") || mess.startsWith(prefix + "s")) {
 
-        if (!message.guild.me.voiceChannel) return message.channel.send(":x: I'm not in a voice channel currently.");
         if (!guilds[message.guild.id].isPlaying) return message.channel.send(":x: I'm currently not playing anything.");
         if (message.guild.me.voiceChannelID !== message.member.voiceChannelID) return message.channel.send(":x: You must be in the same channel as me to do that.");
 
