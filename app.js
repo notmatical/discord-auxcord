@@ -85,6 +85,7 @@ client.on('message', function(message) {
                         .setFooter(`${message.author.username}`);
                 
                         message.channel.send(embed);
+                        request_logs.send(`[${moment().format("YYYY-MM-DD HH:mm:ss")}] [REQUEST] ${message.member.name} has requested ${videoInfo.title} to be played.`);
 
                         guilds[message.guild.id].queueNames.push(videoInfo.title);
                     });
@@ -115,6 +116,7 @@ client.on('message', function(message) {
                         .setFooter(`${message.author.username}`);
                 
                         message.channel.send(embed);
+                        request_logs.send(`[${moment().format("YYYY-MM-DD HH:mm:ss")}] [REQUEST] ${message.member.name} has requested ${videoInfo.title} to be played.`);
 
                         guilds[message.guild.id].queueNames.push(videoInfo.title);
                     });
