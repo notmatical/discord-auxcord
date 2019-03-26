@@ -131,7 +131,7 @@ client.on('message', function(message) {
             skip_song(message);
             message.channel.send("ight dawg, i skipped that hoe.");
         } else {
-            message.channel.send(`shit homie, you need **${guilds[message.guild.id].skipReq}/${required}** more votes to skip this shit.`);
+            message.channel.send(`**Skip the Song?** (${guilds[message.guild.id].skipReq}/${required} ) more votes to skip this shit.`);
         }
 
     } else if (mess.startsWith(prefix + "leave") || mess.startsWith(prefix + "dc") || mess.startsWith(prefix + "disconnect")) {
