@@ -143,7 +143,7 @@ client.on('message', function(message) {
 
         message.guild.me.voiceChannel.leave();
     
-        message.channel.send("duces fool.");
+        message.channel.send("**Disconnected**");
 
     } else if (mess.startsWith(prefix + "queue") || mess.startsWith(prefix + "q")) {
 
