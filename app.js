@@ -75,7 +75,7 @@ client.on('message', function(message) {
                     });
                 });
             } else {
-                isPlaying = true;
+                guilds[message.guild.id].isPlaying = true;
                 fetch_id(args, function(id) {
                     guilds[message.guild.id].queue.push(id);
                     playMusic(id, message);
@@ -108,8 +108,8 @@ client.on('message', function(message) {
 
     } else if (mess.startsWith(prefix + "skip") || mess.startsWith(prefix + "s")) {
 
-        if(!message.guild.me.voiceChannel) return message.channel.send(":x: I'm not in a voice channel currently.");
-        if (!isPlaying) return message.channel.send(":x: I'm currently not playing anything.");
+        if (!message.guild.me.voiceChannel) return message.channel.send(":x: I'm not in a voice channel currently.");
+        if (!guilds[message.guild.id].isPlaying) return message.channel.send(":x: I'm currently not playing anything.");
         if (message.guild.me.voiceChannelID !== message.member.voiceChannelID) return message.channel.send(":x: You must be in the same channel as me to do that.");
 
         let dj = message.guild.roles.find(dj => dj.name === "DJ");
@@ -134,7 +134,7 @@ client.on('message', function(message) {
         }
 
     } else if (mess.startsWith(prefix + "leave") || mess.startsWith(prefix + "dc") || mess.startsWith(prefix + "disconnect")) {
-        if (!isPlaying) return message.channel.send(":x: I'm currently not playing anything.");
+        if (!guilds[message.guild.id].isPlaying) return message.channel.send(":x: I'm currently not playing anything.");
         if (message.guild.me.voiceChannelID !== message.member.voiceChannelID) return message.channel.send(":x: You must be in the same channel as me to do that.");
     
         guilds[message.guild.id].queue = [];
@@ -176,7 +176,7 @@ client.on('message', function(message) {
 
     } else if (mess.startsWith(prefix + "nowplaying") || mess.startsWith(prefix + "np")) {
         
-        if (!isPlaying) return message.channel.send(":x: I'm currently not playing anything.");
+        if (!guilds[message.guild.id].isPlaying) return message.channel.send(":x: I'm currently not playing anything.");
 
         const embed = new Discord.RichEmbed()
         .setAuthor(`Now Playing`, `${message.author.avatarURL}`, 'https://trello.com/b/h9zO4sgW/auxcord-discord-bot')
