@@ -292,7 +292,7 @@ function playMusic(id, message) {
                 setTimeout(function() {
                     let vc = guilds[message.guild.id].voiceChannel;
                     if (vc) vc.leave();
-                }, 5000);
+                }, 30000);
             } else {
                 setTimeout(function() {
                     playMusic(guilds[message.guild.id].queue[0], message);
