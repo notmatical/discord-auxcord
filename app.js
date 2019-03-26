@@ -28,8 +28,14 @@ const log = (msg) => {
 
 var guilds = {};
 
-client.on("error", console.error);
-client.on("warn", console.warn);
+client.on('error', () => {
+    console.error;
+    error_logs.send(`[${moment().format("YYYY-MM-DD HH:mm:ss")}] [ERROR] Check console for stack trace.`);
+});
+client.on('warn', () => {
+    console.warn;
+    warning_logs.send(`[${moment().format("YYYY-MM-DD HH:mm:ss")}] [WARN] Check console for stack trace.`);
+});
 
 client.login(discord_token);
 
