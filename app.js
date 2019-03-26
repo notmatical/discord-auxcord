@@ -64,7 +64,10 @@ client.on('message', function(message) {
                 fetch_id(args, function(id) {
                     add_to_queue(id, message);
                     fetchVideoInfo(id, function(err, videoInfo) {
-                        if (err) throw new Error(err);
+                        if (err) {
+                            error_logs.send(`[${moment().format("YYYY-MM-DD HH:mm:ss")}] [ERROR] ${err}`);
+                            throw new Error(err);
+                        } 
 
                         var songDuration = seconds_format(videoInfo.duration);
 
@@ -92,7 +95,10 @@ client.on('message', function(message) {
                     guilds[message.guild.id].queue.push(id);
                     playMusic(id, message);
                     fetchVideoInfo(id, function(err, videoInfo) {
-                        if (err) throw new Error(err);
+                        if (err) {
+                            error_logs.send(`[${moment().format("YYYY-MM-DD HH:mm:ss")}] [ERROR] ${err}`);
+                            throw new Error(err);
+                        } 
 
                         var songDuration = seconds_format(videoInfo.duration);
 
