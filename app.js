@@ -110,6 +110,8 @@ client.on('message', function(message) {
 
         if (!isPlaying) return message.channel.send("i ain't even playing music right now bud.");
         if (!message.member.voiceChannel) return message.channel.send("you gotta be in a voice channel kid.");
+        if(message.guild.me.voiceChannelID !== message.member.voiceChannelID) return message.channel.send("you ain't even in same channel as me, weirdo.");
+
 
         let dj = message.guild.roles.find(dj => dj.name === "DJ");
 
