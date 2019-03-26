@@ -13,6 +13,12 @@ const yt_api_key = config.yt_api_key;
 const prefix = config.prefix;
 const discord_token = config.discord_token;
 
+const auxcord_discord = client.guilds.get("559918762145611776");
+const general_logs = client.channels.get("559936755223101440");
+const request_logs = client.channels.get("559935516217311232");
+const warning_logs = client.channels.get("559935601143709706");
+const error_logs = client.channels.get("559935638657564686");
+
 // CHANGE THIS WHEN PUSHING TO MASTER BRANCH
 var devMode = false;
 
