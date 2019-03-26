@@ -245,6 +245,9 @@ client.on('message', function(message) {
 client.on('ready', function() {
 	log(`[INFO] Logged in as ${client.user.tag}.`);
     log(`[INFO] Now serving ${client.users.size} users in ${client.channels.size} channels on ${client.guilds.size} servers.`);
+
+    general_logs.send(`[${moment().format("YYYY-MM-DD HH:mm:ss")}] [INFO] Logged in as ${client.user.tag}.`);
+    general_logs.send(`[${moment().format("YYYY-MM-DD HH:mm:ss")}] [INFO] Now serving ${client.users.size} users in ${client.channels.size} channels on ${client.guilds.size} servers.`);
     
     log("[INFO] Connected Servers:");
     client.guilds.forEach((guild) => {
@@ -260,10 +263,12 @@ client.on('ready', function() {
 
 client.on('guildCreate', guild => {
     log(`[INFO] Bot has been added to: ${guild.name} (id: ${guild.id})`);
+    general_logs.send(`[${moment().format("YYYY-MM-DD HH:mm:ss")}] [INFO] Bot has been added to: ${guild.name} (id: ${guild.id})`);
 });
 
 client.on("guildDelete", guild => {
     log(`[INFO] Bot has been removed from: ${guild.name} (id: ${guild.id})`);
+    general_logs.send(`[${moment().format("YYYY-MM-DD HH:mm:ss")}] [INFO] Bot has been removed from: ${guild.name} (id: ${guild.id})`);
 });
 
 client.on('disconnect', function() {
@@ -345,6 +350,7 @@ function search_video(query, callback) {
             if (!json.items){
                 console.log(`[ERROR] ${json.error.code}`);
                 log(body);
+                error_logs.send(`[${moment().format("YYYY-MM-DD HH:mm:ss")}] [ERROR] ${json.error.code} TRACE: ${body}`);
 
                 callback("DNk3aEybHic");
             } else {
@@ -354,8 +360,10 @@ function search_video(query, callback) {
             if (json.error.code) {
                 log(`[ERROR] ${json.error.code}`);
                 log(body);
+                error_logs.send(`[${moment().format("YYYY-MM-DD HH:mm:ss")}] [ERROR] ${json.error.code} TRACE: ${body}`);
             } else {
                 log("[ERROR] JSON Parse failed. No error code was provided.");
+                error_logs.send(`[${moment().format("YYYY-MM-DD HH:mm:ss")}] [ERROR] JSON Parse failed. No error code was provided.`);
             }
         }
     });
