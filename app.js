@@ -207,6 +207,34 @@ client.on('message', function(message) {
         message.channel.send(embed);
 
     } 
+
+    // UTILITY \\
+
+    else if (mess.startsWith(prefix + "debug")) {
+
+        if (!args[0]) {
+            return message.channel.send(":x: You need to specify a correct parameter.");
+        }
+
+        let option = args[0];
+
+        if (option == "m") {
+            // music debug
+            const embed = new Discord.RichEmbed()
+            .setAuthor(`Debug Information`, `${message.author.avatarURL}`, 'https://trello.com/b/h9zO4sgW/auxcord-discord-bot')
+            .setTitle(`MUSIC`)
+            .setColor("#177bc6")
+            .setThumbnail(`https://i.imgur.com/sNI5Csn.png`)
+            .addField(`isPlaying:`, `${guilds[message.guild.id].isPlaying}`, true)
+            .addField(`Queue Length:`, `${guilds[message.guild.id].queue.length}`, true)
+            .addField(`Skip Requests:`, `${guilds[message.guild.id].skipReq}`, true)
+            .setTimestamp()
+            .setFooter(`${message.author.username}`);
+    
+            message.channel.send(embed);    
+        }
+
+    }
     
     // FUN \\
     else if (mess.startsWith(prefix + "8ball")) {
@@ -231,7 +259,7 @@ client.on('message', function(message) {
         .setColor("#177bc6")
         .addField(`Music`, `${prefix}play, ${prefix}nowplaying, ${prefix}queue, ${prefix}clear, ${prefix}skip, ${prefix}leave`)
         .addBlankField()
-        .addField(`Utility`, `Soon`)
+        .addField(`Utility`, `${prefix}debug [m/u]`)
         .addBlankField()
         .addField(`Fun`, `${prefix}8ball`)
         .setTimestamp()
