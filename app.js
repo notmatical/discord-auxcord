@@ -239,7 +239,11 @@ client.on('ready', function() {
 });
 
 client.on('guildCreate', async guild => {
-    log(`[INFO] Bot has been added to a new guild: ${guild.name}`);
+    log(`[INFO] Bot has been added to: ${guild.name} (id: ${guild.id})`);
+});
+
+client.on("guildDelete", async guild => {
+    log(`[INFO] Bot has been removed from: ${guild.name} (id: ${guild.id})`);
 });
 
 client.on('disconnect', function() {
