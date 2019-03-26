@@ -116,7 +116,7 @@ client.on('message', function(message) {
                         .setFooter(`${message.author.username}`);
                 
                         message.channel.send(embed);
-                        request_logs.send(`[${moment().format("YYYY-MM-DD HH:mm:ss")}] [REQUEST] **${message.author.tag}** has requested **${videoInfo.title}** to be played. (GUILD: )`);
+                        request_logs.send(`[${moment().format("YYYY-MM-DD HH:mm:ss")}] [REQUEST] **${message.author.tag}** has requested **${videoInfo.title}** to be played.`);
 
                         guilds[message.guild.id].queueNames.push(videoInfo.title);
                     });
