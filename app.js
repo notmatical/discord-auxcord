@@ -103,14 +103,13 @@ client.on('message', function(message) {
                 });
             }
         } else {
-            message.channel.send("you gotta be in a voice channel kid.");
+            message.channel.send(":x: You have to be in a voice channel to do this.");
         }
 
     } else if (mess.startsWith(prefix + "skip") || mess.startsWith(prefix + "s")) {
 
-        if (!isPlaying) return message.channel.send("i ain't even playing music right now bud.");
-        if (!message.member.voiceChannel) return message.channel.send("you gotta be in a voice channel kid.");
-        if(message.guild.me.voiceChannelID !== message.member.voiceChannelID) return message.channel.send("you ain't even in same channel as me, weirdo.");
+        if (!isPlaying) return message.channel.send(":x: I'm currently not playing anything.");
+        if (message.guild.me.voiceChannelID !== message.member.voiceChannelID) return message.channel.send(":x: You must be in the same channel as me to do that.");
 
         let dj = message.guild.roles.find(dj => dj.name === "DJ");
 
@@ -119,25 +118,24 @@ client.on('message', function(message) {
 
         if (!guilds[message.guild.id].skippers) guilds[message.guild.id].skippers = [];
 
-        if (!guilds[message.guild.id].skippers.indexOf(message.author.id)) return message.channel.send("you already tried to skip this homie.");
+        if (!guilds[message.guild.id].skippers.indexOf(message.author.id)) return message.channel.send(":x: You've already tried to skip this.");
 
         guilds[message.guild.id].skippers.push(message.author.id);
         guilds[message.guild.id].skipReq++;
 
         if (guilds[message.guild.id].skipReq >= required) {
             skip_song(message);
-            message.channel.send("ight dawg, i skipped that hoe.");
+            message.channel.send("**Song has been skipped.**");
         } else if (dj) {
             skip_song(message);
-            message.channel.send("ight dawg, i skipped that hoe.");
+            message.channel.send("**Song has been skipped.**");
         } else {
             message.channel.send(`**Skip the Song?** (${guilds[message.guild.id].skipReq}/${required} ) more votes to skip this shit.`);
         }
 
     } else if (mess.startsWith(prefix + "leave") || mess.startsWith(prefix + "dc") || mess.startsWith(prefix + "disconnect")) {
-        if(!message.member.voiceChannel) return message.channel.send("you gotta be in a voice channel kid.");
-        if(!message.guild.me.voiceChannel) return message.channel.send("i'm not even in a channel, quit fucking with me.");
-        if(message.guild.me.voiceChannelID !== message.member.voiceChannelID) return message.channel.send("you ain't even in same channel as me, weirdo.");
+        if (!isPlaying) return message.channel.send(":x: I'm currently not playing anything.");
+        if (message.guild.me.voiceChannelID !== message.member.voiceChannelID) return message.channel.send(":x: You must be in the same channel as me to do that.");
     
         guilds[message.guild.id].queue = [];
         guilds[message.guild.id].queueNames = [];
@@ -165,8 +163,9 @@ client.on('message', function(message) {
 
     } else if (mess.startsWith(prefix + "clear") || mess.startsWith(prefix + "c")) {
         
-        if(!message.guild.me.voiceChannel) return message.channel.send("i'm not even in a channel, quit fucking with me.");
-        if(message.guild.me.voiceChannelID !== message.member.voiceChannelID) return message.channel.send("you ain't even in same channel as me, weirdo.");
+        //if(!message.guild.me.voiceChannel) return message.channel.send(":x: I'm not in a voice channel currently.");
+        if (!isPlaying) return message.channel.send(":x: I'm currently not playing anything.");
+        if (message.guild.me.voiceChannelID !== message.member.voiceChannelID) return message.channel.send(":x: You must be in the same channel as me to do that.");
 
         guilds[message.guild.id].queue = [];
         guilds[message.guild.id].queueNames = [];
@@ -174,11 +173,11 @@ client.on('message', function(message) {
 
         message.guild.me.voiceChannel.leave();
 
-        message.channel.send("fosho, i cleared the queue for you.");
+        message.channel.send("**Queue has been cleared.**");
 
     } else if (mess.startsWith(prefix + "nowplaying") || mess.startsWith(prefix + "np")) {
         
-        if(!message.guild.me.voiceChannel) return message.channel.send("i'm not even playing music weirdo.");
+        if (!isPlaying) return message.channel.send(":x: I'm currently not playing anything.");
 
         const embed = new Discord.RichEmbed()
         .setAuthor(`Now Playing`, `${message.author.avatarURL}`, 'https://trello.com/b/h9zO4sgW/auxcord-discord-bot')
@@ -201,10 +200,10 @@ client.on('message', function(message) {
             "Who knows... :thinking:"
         ];
 
-        if (!args[0]) return message.channel.send("include a question? smh weirdo.");
+        if (!args[0]) return message.channel.send(":x: You must specify a question.");
 
         if (args[0]) message.channel.send(ballResponses[Math.floor(Math.random() * ballResponses.length)]);
-        else message.channel.send("try again buddy, i didnt understand that..");
+        else message.channel.send(":thinking: Sorry, I didn't quite understand that.");
 
     } else if (mess.startsWith(prefix + "help")) {
         const embed = new Discord.RichEmbed()
@@ -231,7 +230,7 @@ client.on('ready', function() {
     
     log("[INFO] Connected Servers:");
     client.guilds.forEach((guild) => {
-        log(" - " + guild.name);
+        log(" - " + guild.name + " (ID: " + guild.id + ")");
     });
 
     if (devMode) {
